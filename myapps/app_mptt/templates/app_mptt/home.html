@@ -1,10 +1,43 @@
 {% extends '_base.html' %}
 {% load static %}
+{% load mptt_tags %}
 
 {% block title %}
   MPTT | Home
 {% endblock %}
 
 {% block content %}
+<div class="container">
   <h1>MPTT Home</h1>
+  <br/>
+  {% if not categories %}
+    <li>
+      <h1>No categories yet</h1>
+    </li>
+    {% else %}
+      <ul>
+        {% recursetree categories %}
+        <li>
+          {{ node.name }}
+          {% if not node.is_leaf_node %}
+          <ul class="children ml-4">
+            {{ children }}
+          </ul>
+          {% endif %}
+        </li>
+        {% endrecursetree %}
+      </ul>
+
+      <br /> <br />
+      <!-- <select name="classifiers" multiple="multiple" size="10">
+        {% for node,structure in categories|tree_info:"ancestors" %}
+        {% if node.is_child_node %}
+        <option value="{{ node.pk }}">
+          {{ structure.ancestors|tree_path }} :: {{ node }}
+        </option>
+        {% endif %}
+        {% endfor %}
+      </select> -->
+  {% endif %}
+</div>
 {% endblock %}
