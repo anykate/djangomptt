@@ -11,9 +11,7 @@
   <h1>MPTT Home</h1>
   <br/>
   {% if not categories %}
-    <li>
-      <h1>No categories yet</h1>
-    </li>
+      <h5>{No categories yet !!}</h5>
     {% else %}
       <ul>
         {% recursetree categories %}
